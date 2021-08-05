@@ -1,11 +1,11 @@
 from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
-from marshmallow import fields
 from flask_marshmallow import Marshmallow
 
 app=Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:@localhost:3306/flask_crud'
+# app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:@localhost:3306/flask_crud'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///users.db'
 db=SQLAlchemy(app)
 ma=Marshmallow(app)
 
@@ -32,9 +32,6 @@ class UserShema(ma.SQLAlchemyAutoSchema):
         model=User
         load_instance = True
         fields=( 'id', 'title', 'description')
-    # id=fields.Number(dump_only =True)
-    # title=fields.String(required=True)
-    # description=fields.String(required=True)
 
 db.create_all()
 
